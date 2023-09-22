@@ -1,0 +1,23 @@
+name: CI-write-output-official
+on:
+  push:
+    branches: main
+  workflow_dispatch:
+jobs:
+  Run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Read sample output file content
+        id: read-file
+        shell: pwsh
+        run: |
+            $content = Get-Content -Path version.txt -Raw
+            echo outputContent=$content >> $env:GITHUB_OUTPUT
+      - name: Print output from file to console
+        id: write-content
+        shell: pwsh
+        run: |
+            echo ${{ steps.read-file.outputs.outputContent }}
+        
