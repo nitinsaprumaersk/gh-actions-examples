@@ -29,4 +29,46 @@ jobs:
         run: |
             echo "Pwsh version: ${{ steps.read-file.outputs.outputContent }}"
             echo "Bash version: ${{ steps.read-file-bash.outputs.outputContent }}"
+  WindowsRun:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Read version from repository using PS Core
+        id: read-file
+        shell: pwsh
+        run: |
+            $content = Get-Content -Path version.txt -Raw
+            echo outputContent=$content >> $env:GITHUB_OUTPUT
+        working-directory: ${{ github.workspace }}
+      - name: Read version from repository using bash shell
+        id: read-file-bash
+        shell: bash
+        run: |
+            content=`cat version.txt`
+            echo outputContent=$content >> $GITHUB_OUTPUT
+        working-directory: ${{ github.workspace }}
+      - name: Read version from repository using Powershell
+        id: read-file-ps
+        shell: powershell
+        run: |
+            $content = Get-Content -Path version.txt -Raw
+            "outputContent=$content" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        working-directory: ${{ github.workspace }}
+      - name: Read version from repository using Powershell
+        id: read-file-cmd
+        shell: powershell
+        run: |
+            $content = Get-Content -Path version.txt -Raw
+            outputContent=$content >> %GITHUB_OUTPUT%
+        working-directory: ${{ github.workspace }}
+      - name: Print version from file to console
+        id: write-content
+        shell: pwsh
+        run: |
+            echo "Pwsh version: ${{ steps.read-file.outputs.outputContent }}"
+            echo "Bash version: ${{ steps.read-file-bash.outputs.outputContent }}"
+            echo "Powershell version: ${{ steps.read-file-ps.outputs.outputContent }}"
+            echo "CMD version: ${{ steps.read-file-cmd.outputs.outputContent }}"
+
         
