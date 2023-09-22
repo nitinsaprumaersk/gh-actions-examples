@@ -60,7 +60,7 @@ jobs:
         shell: cmd
         run: |
             $content = Get-Content -Path version.txt -Raw
-            outputContent=$content >> %GITHUB_OUTPUT%
+            echo outputContent=$content >> %GITHUB_OUTPUT%
         working-directory: ${{ github.workspace }}
       - name: Print version from file to console
         id: write-content
