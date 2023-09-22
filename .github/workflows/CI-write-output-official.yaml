@@ -59,8 +59,8 @@ jobs:
         id: read-file-cmd
         shell: cmd
         run: |
-            $content = Get-Content -Path version.txt -Raw
-            echo outputContent=$content >> %GITHUB_OUTPUT%
+            set /p content=<version.txt
+            echo outputContent=%content% >> %GITHUB_OUTPUT%
         working-directory: ${{ github.workspace }}
       - name: Print version from file to console
         id: write-content
