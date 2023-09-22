@@ -55,9 +55,9 @@ jobs:
             $content = Get-Content -Path version.txt -Raw
             "outputContent=$content" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
         working-directory: ${{ github.workspace }}
-      - name: Read version from repository using Powershell
+      - name: Read version from repository using Cmd
         id: read-file-cmd
-        shell: powershell
+        shell: cmd
         run: |
             $content = Get-Content -Path version.txt -Raw
             outputContent=$content >> %GITHUB_OUTPUT%
