@@ -15,6 +15,7 @@ jobs:
         run: |
             $content = Get-Content -Path version.txt -Raw
             echo outputContent=$content >> $env:GITHUB_OUTPUT
+        working-directory: ${{ github.workspace }}
       - name: Print output from file to console
         id: write-content
         shell: pwsh
