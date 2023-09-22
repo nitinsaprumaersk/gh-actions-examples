@@ -13,7 +13,7 @@ jobs:
         id: read-file
         shell: pwsh
         run: |
-            $content = Get-Content -Path sampleoutput.txt -Raw
+            $content = Get-Content -Path version.txt -Raw
             echo outputContent=$content >> $env:GITHUB_OUTPUT
         working-directory: ${{ github.workspace }}
       - name: Print version from file to console
