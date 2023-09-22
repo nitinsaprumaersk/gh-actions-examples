@@ -9,16 +9,16 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Read sample output file content
+      - name: Read version from repository
         id: read-file
         shell: pwsh
         run: |
             $content = Get-Content -Path sampleoutput.txt -Raw
             echo outputContent=$content >> $env:GITHUB_OUTPUT
         working-directory: ${{ github.workspace }}
-      - name: Print output from file to console
+      - name: Print version from file to console
         id: write-content
         shell: pwsh
         run: |
-            echo ${{ steps.read-file.outputs.outputContent }}
+            echo "version: ${{ steps.read-file.outputs.outputContent }}"
         
